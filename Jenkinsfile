@@ -6,11 +6,6 @@ pipeline {
     }
     stages {
 
-        stage('pull scm git ') {
-            steps {
-                git branch: 'main', url: 'https://github.com/PraveenKuber/Amazon-Jenkins.git'
-            }
-        }
         stage('compile ') {
             steps {
                 sh 'mvn compile'
@@ -23,7 +18,17 @@ pipeline {
             }
         }
 
-        
+        stage( 'Deploy')
+        {
+            when {
+                expression {
+                    env.BRANCH_NAME?.contains( 'release' )
+                }
+            }
+            steps {
+                echo "Its an release branch and will start deploy the war to tomcat"
+            }
+        }
     }
 
   post{
