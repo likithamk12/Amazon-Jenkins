@@ -1,0 +1,40 @@
+
+pipeline {
+    agent any
+
+    environment {
+        APP_NAME = 'Amazon'
+        GIT_BRANCH = 'main'
+    }
+
+    stages {
+
+        stage('Build') {
+            steps {
+                echo "Building ${APP_NAME}"
+                sh 'mvn clean install'
+            }
+        }
+
+        stage('Test') {
+            steps {
+                echo "Testing ${APP_NAME}"
+                sh 'mvn test'
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'Build completed successfully'
+        }
+
+        failure {
+            echo 'Build failed'
+        }
+
+        always {
+            echo 'Pipeline execution completed'
+        }
+    }
+}
