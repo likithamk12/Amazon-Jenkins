@@ -4,7 +4,7 @@ pipeline {
 
     environment {
         APP_NAME = 'Amazon'
-        GIT_BRANCH = 'main'
+        GIT_BRANCH = 'master-demo'
     }
 
     stages {
